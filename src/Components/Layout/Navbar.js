@@ -22,7 +22,7 @@ const Navbar = (props) => {
                                 <a className="nav-link active" aria-current="page" href="/">Store</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/">About</a>
+                                <a className="nav-link active" aria-current="page" href="/about">About</a>
                             </li>
                         </ul>
                         <form className="d-flex">
