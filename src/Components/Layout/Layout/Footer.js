@@ -1,21 +1,30 @@
-import { Fragment } from "react";
-import { BsYoutube, BsSpotify, BsFacebook, BsInstagram } from "react-icons/bs";
-
-
+import React from 'react'
+import './Footer.css'
 const Footer = () => {
-  return (
-    <Fragment>
-      <div className="p-1 bg-info text-white d-flex align-items-center ">
-        <p style={{ fontSize: "3em", fontFamily: "bold", marginLeft: "25%" }}>
-          The Generics
-        </p>
-        <BsYoutube style={{ marginLeft: "40%" }} size={36} />
-        <BsSpotify style={{ marginLeft: "2%" }} size={36} />
-        <BsFacebook style={{ marginLeft: "2%" }} size={36} />
-        <BsInstagram style ={{marginLeft: "2%"}} size ={36} />
-      </div>
-    </Fragment>
-  );
-};
+    return (
+        <div className='footer'>
+            <div className="footer-title">The Generics</div>
+            <div className="footer-icons">
+                <ul>
+                    <li>
+                        <a href="https://www.youtube.com">
+                            <img className='footer-icons-image' src="https://prasadyash2411.github.io/ecom-website/img/6260efc8fc9a9002669d2f4ad9956cc0.jpg" alt="" />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://spotify.com">
+                            <img className='footer-icons-image' src="https://prasadyash2411.github.io/ecom-website/img/Spotify%20Logo.png" alt="" />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com">
+                            <img className='footer-icons-image' src="https://prasadyash2411.github.io/ecom-website/img/Facebook%20Logo.png" alt="" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    )
+}
 
-export default Footer;
+export default Footer
