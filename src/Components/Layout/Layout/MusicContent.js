@@ -29,12 +29,12 @@ const MusicContent = (props) => {
     }
     return (
         <div>
-            <h1 className='text-center'>MUSIC</h1>
+            <h1 style={{fontFamily:"Metal-mania"}} className='text-center'>MUSIC</h1>
             <div className='container'>
             <div className='row my-1'>
                 {productsArr.map((item) => {
                     return <div className='col-md-3 my-4'>
-                        <MusicItem key={item.title} title={item.title} price={item.price}
+                        <MusicItem key={Math.random().toString()} title={item.title} price={item.price}
                          imageUrl={item.imageUrl} product={item} /></div>
                 })}
             </div>
