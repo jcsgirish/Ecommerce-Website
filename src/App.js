@@ -7,7 +7,7 @@ import Navbar from './Components/Layout/Navbar';
 import CartProvider from './Store/CartProvider';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-
+import Contact from './Components/Pages/Contact';
 import About from './Components/Pages/About';
 import Home from './Components/Pages/Home';
 import HeaderContent from './Components/Layout/Layout/HeadContent';
@@ -38,7 +38,6 @@ function App() {
           <Route path ="/home">
           <HeaderContent/>
           <Home/>
-           
           </Route>
 
           <Route path="/store" >
@@ -50,6 +49,12 @@ function App() {
             <Heading />
             <About/>
           </Route>
+
+          <Route path="/contact">
+            <Heading />
+            <Contact/>
+          </Route>
+
 
           </Switch>
         <Footer />
