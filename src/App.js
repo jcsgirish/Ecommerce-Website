@@ -1,13 +1,13 @@
-import {  useState  } from 'react';
+import {  useState,useContext  } from 'react';
 import Cart from './Components/Cart/Cart';
 import Footer from './Components/Layout/Layout/Footer';
 import Heading from './Components/Layout/Layout/Head';
 import MusicContent from './Components/Layout/Layout/MusicContent';
 import Navbar from './Components/Layout/Navbar';
 import CartProvider from './Store/CartProvider';
+import { cartContext } from './Store/CartProvider';
 
-
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter,Redirect, Route, Switch } from 'react-router-dom';
 
 import Contact from './Components/Pages/Contact';
 import About from './Components/Pages/About';
@@ -21,6 +21,9 @@ import ProductDetail from './Components/Pages/Productdetail';
 function App() {
   const [showCart, setShowCart] = useState(false);
 
+  const CartCtx = useContext(cartContext);
+
+
 
 
 
@@ -33,8 +36,9 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
     <CartProvider>
+    <BrowserRouter>
+   
       {showCart && <Cart handleToggleCart={handleToggleCart} />}
     
 
@@ -65,11 +69,10 @@ function App() {
             <Heading />
             <Contact/>
           </Route>
-
           <Route exact path='/products'>
-            <Product/>
-         
-        </Route>
+          {CartCtx.isLoggedIn ? <Product /> : <Redirect to='/login'/>} 
+
+          </Route>
 
           <Route exact path="/login">
           <Login />
@@ -84,8 +87,9 @@ function App() {
         <Footer />
        
       
-    </CartProvider>
+   
     </BrowserRouter>
+    </CartProvider>
   );
 }
 
