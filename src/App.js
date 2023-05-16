@@ -12,6 +12,8 @@ import About from './Components/Pages/About';
 import Home from './Components/Pages/Home';
 import HeaderContent from './Components/Layout/Layout/HeadContent';
 
+import Login from './Components/Pages/Login';
+
 function App() {
   const [showCart, setShowCart] = useState(false);
   const handleToggleCart = () => {
@@ -53,6 +55,10 @@ function App() {
           <Route path="/contact">
             <Heading />
             <Contact/>
+          </Route>
+
+          <Route exact path="/login">
+          <Login />
           </Route>
 
 

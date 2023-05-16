@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 import { cartContext } from '../../Store/CartProvider'
+import { NavLink } from 'react-router-dom/cjs/react-router-dom.min'
+
 
 const Navbar = (props) => {
     let cartCtx=useContext(cartContext)
@@ -16,18 +18,28 @@ const Navbar = (props) => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul  className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a   className="nav-link active" aria-current="page" href="/home">Home</a>
+                                <NavLink  className="nav-link active" aria-current="page"  to="/home">Home</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/store">Store</a>
+                                <NavLink className="nav-link active" aria-current="page" to="/store">Store</NavLink>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/about">About</a>
 
-                            </li>
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/contact">ContactUs</a>
+                                <NavLink className="nav-link active" aria-current="page"  to="/about">About</NavLink>
                             </li>
+
+                            <li className="nav-item">
+                                <NavLink className="nav-link active" aria-current="page"  to="/login">Login</NavLink>
+                            </li>
+
+                            <li className="nav-item">
+                                <NavLink className="nav-link active" aria-current="page"  to="/contact">ContactUs</NavLink>
+                            </li>
+
+                           
+
+
+
                         </ul>
                         <form className="d-flex">
                             <button type="button" className="btn btn-dark border-primary" onClick={handleOpenCart}>Cart</button>
