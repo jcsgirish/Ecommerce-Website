@@ -32,7 +32,7 @@ const Login = () => {
                         ctx.setToken(data.idToken);
                         localStorage.setItem("idToken", data.idToken);
                         ctx.setIsLoggedIn(true);
-                        history.push('')
+                        history.push('/products')
                     })
                 } else { 
                     return res.json().then((data) => {
