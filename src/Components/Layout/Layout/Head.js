@@ -1,12 +1,30 @@
-import React from 'react'
-import './Head.css'
 
-const Heading = () => {
+import { Fragment,useContext} from "react";
+
+import NavBar from "../Navbar";
+import classes from './Head.module.css';
+import HeaderCartButton from "./HeadCartbutton";
+import LoginContext from "../../../Store/LoginContext";
+
+
+
+const Heading = (props) => {
+const authCtx=useContext(LoginContext)
+
+
+  
+
   return (
-    <div className='heading'>
-      <h1>The Generics</h1>
-    </div>
-  )
-}
-
-export default Heading
+    <Fragment>
+      <header className={classes.header}>
+        
+      {authCtx.isLoggedIn&& <HeaderCartButton onClick={props.onShowCart} />}
+      <NavBar />
+      
+        <h1 className={classes.h1}>The Generics</h1>
+      </header>
+      
+    </Fragment>
+  );
+};
+export default Heading;

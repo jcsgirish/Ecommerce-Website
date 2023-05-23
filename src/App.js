@@ -1,96 +1,108 @@
-import {  useState,useContext  } from 'react';
-import Cart from './Components/Cart/Cart';
-import Footer from './Components/Layout/Layout/Footer';
-import Heading from './Components/Layout/Layout/Head';
-import MusicContent from './Components/Layout/Layout/MusicContent';
-import Navbar from './Components/Layout/Navbar';
-import CartProvider from './Store/CartProvider';
-import { cartContext } from './Store/CartProvider';
+import React, { Fragment, useState,useContext,useEffect,Suspense} from "react";
+import axios from "axios";
+import { Route,Redirect } from "react-router-dom";
+import Heading from "./Components/Layout/Layout/Head";
+import Footer from "./Components/Layout/Layout/Footer";
 
-import { BrowserRouter,Redirect, Route, Switch } from 'react-router-dom';
+import CartProvider from "./Store/CartProvider";
+import LoginContext from "./Store/LoginContext";
+import CartContext from "./Store/CartContext";
+import Cart from "./Components/Cart/Cart";
 
-import Contact from './Components/Pages/Contact';
-import About from './Components/Pages/About';
-import Home from './Components/Pages/Home';
-import HeaderContent from './Components/Layout/Layout/HeadContent';
+const  About=React.lazy(()=> import(  "./Components/Pages/About"));
+const  Home2 = React.lazy(()=> import ( "./Components/Pages/Home2"));
+const Store=React.lazy(()=>import('./Components/Pages/Store'));
+const Contact=React.lazy(()=>import('./Components/Pages/Contact'));
+const LoginForm = React.lazy(()=> import ( "./Components/Pages/Login"));
+const  ProductDetail=React.lazy(()=> import ("./Components/Pages/Productdetail"));
 
-import Login from './Components/Pages/Login';
-import Product from './Components/Pages/Product';
-import ProductDetail from './Components/Pages/Productdetail';
 
 function App() {
-  const [showCart, setShowCart] = useState(false);
 
-  const CartCtx = useContext(cartContext);
-
-
-
-
-
-  const handleToggleCart = () => {
-    if (showCart) {
-      setShowCart(false);
-    } else {
-      setShowCart(true);
-    }
+  if(!localStorage.getItem('email')) {
+    localStorage.setItem("email","")
   }
 
-  return (
-    <CartProvider>
-    <BrowserRouter>
-   
-      {showCart && <Cart handleToggleCart={handleToggleCart} />}
-    
-
-        <Navbar handleToggleCart={handleToggleCart} />
-        <Route path="/" exact>
-          <HeaderContent/>
-        <Home/>
-        </Route>
-
-        <Switch>
-
-          <Route path ="/home">
-          <HeaderContent/>
-          <Home/>
-          </Route>
-
-          <Route path="/store" >
-            <Heading />
-            <MusicContent handleToggleCart={handleToggleCart} />
-          </Route>
-
-          <Route path="/about">
-            <Heading />
-            <About/>
-          </Route>
-
-          <Route path="/contact">
-            <Heading />
-            <Contact/>
-          </Route>
-          <Route exact path='/products'>
-          {CartCtx.isLoggedIn ? <Product /> : <Redirect to='/login'/>} 
-
-          </Route>
-
-          <Route exact path="/login">
-          <Login />
-          </Route>
-
-          <Route exact path='/products/:productId'>
-          <ProductDetail />
-        </Route>
+  const authCtx = useContext(LoginContext);
+  const cartCtx = useContext(CartContext);
+  let email = localStorage.getItem("email").replace(".", "").replace("@", "");
 
 
-          </Switch>
-        <Footer />
-       
+  const [cartIsShown, setCartIsShown] = useState(false);
+
+  const ShowCartHandler = () => {
+    setCartIsShown(true);
+  };
+
+  const HideCartHandler = () => {
+    setCartIsShown(false);
+  };
+
+  useEffect(() => {
+    if (!email) return;
+     axios.get(`https://crudcrud.com/api/bda76a1b86d740c08246ce47251d1a17/Cart${email}`).then((res) => {
       
-   
-    </BrowserRouter>
-    </CartProvider>
+       const data= (res.data)
+       for (const key in data) {
+         const item = data[key];
+         item._id = key;
+         cartCtx.mapID(item)
+       }
+       
+     }).catch((err) => {
+       alert(err)
+     })
+   }, [email, cartCtx])
+
+  return (
+    <Fragment>
+      
+      <CartProvider>
+        
+        {cartIsShown && <Cart onClose={HideCartHandler} />}
+        <Heading onShowCart={ShowCartHandler} />
+        
+        <Suspense>
+        <Route path="/" exact>
+        <Redirect to="/Login" />
+        </Route>
+
+        <Route path="/About">
+          <About />
+        </Route>
+
+        <Route path="/Home">
+          <Home2 />
+        </Route>
+
+        <Route path="/Store">
+       {authCtx.isLoggedIn&&<Store></Store>}
+       {!authCtx.isLoggedIn&&  <Redirect  to = "/Login"></Redirect>}
+       
+        </Route>
+
+        <Route path="/Contact">
+          <Contact />
+        </Route>
+
+        <Route path="/products/:product_id">
+            <ProductDetail />
+          </Route>
+
+       <Route path="/Login" exact>
+        <LoginForm/>
+        {!authCtx.isLoggedIn && <Redirect to='/Login'/>}
+        </Route>
+        </Suspense>
+        
+
+        <Footer />
+      </CartProvider>
+    </Fragment>
   );
 }
 
 export default App;
+
+
+

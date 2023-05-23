@@ -7,16 +7,18 @@ import reportWebVitals from './reportWebVitals';
 import '../node_modules/react-bootstrap/dist/react-bootstrap.min'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import {BrowserRouter} from 'react-router-dom'
-import CartProvider from './Store/CartProvider';
+import { LoginContextProvider } from './Store/LoginContext';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <LoginContextProvider>
   <BrowserRouter>
-  <React.StrictMode>
-    <CartProvider>
+   
     <App />
-    </CartProvider>
-  </React.StrictMode>
+   
   </BrowserRouter>
+  </LoginContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

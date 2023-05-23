@@ -14,8 +14,8 @@
     display: block;
     width: 100%;
     font: inherit;
-    padding: 0.2rem;
-    border-radius: 12px;
+    padding: 0.1rem;
+    border-radius: 5px;
     border: 1px solid #ccc;
   }
   

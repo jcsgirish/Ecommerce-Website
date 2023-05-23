@@ -1,19 +1,66 @@
-import React, { createContext, useState } from 'react'
+import { useState } from "react";
+import CartContext from "./CartContext";
 
-const cartContext=createContext();
 
+export const CartProvider = (props) => {
+  if (!localStorage.getItem("email")) {
+    localStorage.setItem("email", "");
+  }
+ 
 
-const CartProvider = (props) => {
-    const [cartItems,setCartItems]=useState({items:[],totalItems:0,totalAmount:0})
+  const [items, setItems] = useState([]);
 
-    const [isLoggedIn,setIsLoggedIn]=useState(false);
+  const addItemToCartHandler=(item)=>{
+    let hasItems=false
+    const newArray=[...items]
+    newArray.forEach(Element=>{ 
+        if(Element.title===item.title){
+            hasItems=true
+        }
+    })
+    if(hasItems===true){
+      alert('item exists')
+  }
+  else{
+      setItems([...items,item])
+  }
+  }
 
-    const [token,setToken]=useState(null);
+  const removeItemHandler = (id) => {
+    let itemToRemove = items.findIndex((item) => item.id === id);
+    console.log(itemToRemove);
+    const i = [...items];
+    const updatedItems = i.splice(itemToRemove, 1);
+    console.log(itemToRemove, i, updatedItems);
+    setItems(i);
+  };
+
+  const emptyCartHandler = () => {
+    setItems([]);
+  };
+
+  const initializeCartHandler = (items) => {
+    setItems(items);
+  };
+
+  const mapIDHandler = (id) => {
+    items.id = id;
+  };
+
+  const cartContext = {
+    items: items,
+    totalAmount: 0,
+    addItem: addItemToCartHandler,
+    removeItem: removeItemHandler,
+    emptyCart: emptyCartHandler,
+    initilizeCart: initializeCartHandler,
+    mapID: mapIDHandler,
+  };
   return (
-    <cartContext.Provider value={{cartItems,setCartItems,isLoggedIn,setIsLoggedIn,token,setToken}}>
+    <CartContext.Provider value={cartContext}>
       {props.children}
-    </cartContext.Provider>
-  )
-}
-export {cartContext};
+    </CartContext.Provider>
+  );
+};
+
 export default CartProvider;
