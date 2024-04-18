@@ -12,7 +12,7 @@ const CartItems = (props) => {
     const id = props._id;
 
     axios.delete(
-      `https://crudcrud.com/api/bda76a1b86d740c08246ce47251d1a17/Cart${emailId}/${id}`
+      `https://crudcrud.com/api/1f3d9e1acbfa4a5fa34970a63ffce083/Cart${emailId}/${id}`
     );
   };
 

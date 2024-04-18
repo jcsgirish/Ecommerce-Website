@@ -56,7 +56,7 @@ const AvailableItems = (props) => {
   useEffect(() => {
     axios
       .get(
-        `https://crudcrud.com/api/fb04445e329643bcb622494e8e122a67/Cart${emailId}`
+        `https://crudcrud.com/api/1f3d9e1acbfa4a5fa34970a63ffce083/Cart${emailId}`
       )
       .then((res) => {
         cartCtx.initilizeCart(res.data);

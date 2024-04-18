@@ -40,7 +40,7 @@ function App() {
 
   useEffect(() => {
     if (!email) return;
-     axios.get(`https://crudcrud.com/api/bda76a1b86d740c08246ce47251d1a17/Cart${email}`).then((res) => {
+     axios.get(`https://crudcrud.com/api/1f3d9e1acbfa4a5fa34970a63ffce083/Cart${email}`).then((res) => {
       
        const data= (res.data)
        for (const key in data) {
